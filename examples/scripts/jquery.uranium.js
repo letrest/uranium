@@ -420,23 +420,28 @@ interactions.validator = function( fragment ) {
     // by the 'max' function
     minmax
       .on("blur", function() {
-        isNumber(this, max.val());
+        isNumber(this, minmax.val());
         var inputVal = parseInt(max.val());
         var minVal = parseInt(min.attr("data-ur-validator-minval"));
         var maxVal = parseInt(max.attr("data-ur-validator-maxval"));
         
         if (isNaN(inputVal)) {
           // Do nothing if blank
+          console.log("blank");
           removeInputError(this);
           removeSpanError("min");
         } else if (inputVal >= minVal && inputVal <= maxVal) {
-          // console.log("Value is high enough");
+          console.log("Value is high enough");
           removeInputError(this);
           removeSpanError("min");
           return true;
-        } else {
-          // console.log("Value is too high");
+        } else if (inputVal <= minVal) {
           addInputError(this);
+          addSpanError(this, "min", "This value is too low. Please enter a value of "+minVal+" or above. ");
+        } else {
+          console.log("Value is too high");
+          addInputError(this);
+          addSpanError(this, "max", "This value is too high. Please enter a value of "+maxVal+" or below. ");
           return false;
         }
       });
