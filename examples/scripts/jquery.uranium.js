@@ -271,15 +271,13 @@ interactions.validator = function( fragment ) {
       if (isnum) {
       // If is a number, continue as normal
         removeInputError(this);
-        removeSpanError("letter");
+        removeSpanError();
       } else if(num === "") {
-      // Blank, so ignoring for now
-        console.log("BLANK");
+        // Blank, so ignoring for now
         removeInputError(this);
-        removeSpanError("letter")
+        removeSpanError()
       } else {
-        console.log("Letters present.")
-        removeSpanError("letter")
+        removeSpanError()
         addInputError(target);
         addSpanError(target, "letter", "Please enter a number. ");
         return false;
